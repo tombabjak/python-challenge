@@ -35,23 +35,24 @@ with open(csvpath) as csvfile:
 
         avg_change = sum/monthtotal
 
-    
-    print(f'Financial Analysis')
-    print(f'----------------------------')
-    print(f'Total Months: {monthtotal}')
-    print(f'Total: ${sum}')
+    row1 = 'Total Months: ' + str(monthtotal)
+    row2 = 'Total: $' + str(sum)
+    row3 = 'Average Change: $' + str(avg_change)
+    row4 = 'Greatest Increase in Profits: ' + str(monthmax) + ' ($' + str(max1) + ')'
+    row5 = 'Greatest Decrease in Profits: ' + str(monthmin) + ' ($' + str(min1) + ')'
 
-    print(f'Average Change: ${avg_change}')
+outputfile = os.path.join("Analysis","analysis.txt")
+with open(outputfile, 'w') as datafile:
+    writer = csv.writer(datafile)
+    writer.writerow(["Financial Analysis"])
+    writer.writerow(["----------------------------"])
+    writer.writerow([row1])
+    writer.writerow([row2])
+    writer.writerow([row3])
+    writer.writerow([row4])
+    writer.writerow([row5])
 
-    print(f'Greatest Increase in Profits: {monthmax} (${max1})')
-    print(f'Greatest Decrease in Profits: {monthmin} (${min1})')
-
-   
-
-
-
-
-    
- 
-    
-    
+f = open('analysis/analysis.txt', 'r')
+contents = f.read()
+print (contents)
+f.close()
