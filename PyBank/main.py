@@ -8,6 +8,7 @@ csvpath = os.path.join('Resources', 'budget_data.csv')
 # Loop through each column's elements and push to separate arrays
 total=[]
 months=[]
+change=[]
 
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
@@ -15,6 +16,23 @@ with open(csvpath) as csvfile:
     for row in csvreader:
         total.append(int(row[1]))
         months.append(row[0])
+    
+    # Find Total Number of Months
+    monthtotal = len(months)
+    
+    # Find Total
+    sum = 0
+    for x in total:
+        sum = sum + int(x)
+        avg_change = sum/monthtotal
+
+    # Find Average Change
+    for i in range(1,monthtotal):
+        change.append(total[i]-total[i-1])
+        sumchange = 0
+        for y in change:
+            sumchange = sumchange + int(y)
+            avgchange = sumchange/(monthtotal-1)
 
     # Find Greatest Decrease, Amount and Month/Year
     min1 = min(total)
@@ -26,19 +44,10 @@ with open(csvpath) as csvfile:
     maxindex = total.index(max1)
     monthmax = months[maxindex]
 
-    # Find Total Number of Months
-    monthtotal = len(months)
-    
-    # Calculations for Total and Average Change
-    sum = 0
-    for x in total:
-        sum = sum + int(x)
-        avg_change = sum/monthtotal
-
     # Store analysis rows
     row1 = 'Total Months: ' + str(monthtotal)
     row2 = 'Total: $' + str(sum)
-    row3 = 'Average Change: $' + str(avg_change)
+    row3 = 'Average Change: $' + str(round(avgchange,2))
     row4 = 'Greatest Increase in Profits: ' + str(monthmax) + ' ($' + str(max1) + ')'
     row5 = 'Greatest Decrease in Profits: ' + str(monthmin) + ' ($' + str(min1) + ')'
 
