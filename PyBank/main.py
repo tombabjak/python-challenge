@@ -10,8 +10,10 @@ total=[]
 months=[]
 change=[]
 
+# Read .csv file
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
+    # Skip Header
     next(csvreader)
     for row in csvreader:
         total.append(int(row[1]))
