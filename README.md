@@ -1,11 +1,7 @@
 # python-challenge
-Thomas Babjak
+Thomas Babjak   
+December 28, 2020   
 
-December 28, 2020
-
-
-For code, see 'main.py' in each directory for 'PyBank' and 'PyPoll'.
-
-For final analysis, see 'analysis.txt' in each 'Analysis' folder.
-
-Source data located in each 'Resources' folder as .csv files.
+For code, see 'main.py' in each directory for 'PyBank' and 'PyPoll'.   
+For final analysis, see 'analysis.txt' in each 'Analysis' folder.   
+Source data located in each 'Resources' folder as .csv files.   
