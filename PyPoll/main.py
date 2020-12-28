@@ -11,59 +11,46 @@ total=[]
 # Read .csv file
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
+
     # Skip Header
     next(csvreader)
     for row in csvreader:
         total.append(row[2])
 
-        # Total Number of Votes
-        votetotal = len(total)
+    # Open output file
+    f = open("Analysis/analysis.txt", "w")
+    print("Election Results", file=f)
+    print("-------------------------", file=f)
 
-        # Claculate List of Candidates With Vote Count and Percentage of Total
-        def unique(total):
-            listset = set(total) 
-            uniquelist = (list(listset)) 
-            for x in uniquelist:
-                print(f'{x}: {round(total.count(x)/votetotal*100,3)}% ({total.count(x)})')
-            return "-------------------------"
-
-        # Claculate Winner
-        def winner(total): 
-            counter = 0
-            num = total[0] 
-            for i in total: 
-                freq = total.count(i) 
-                if freq > counter: 
-                    counter = freq 
-                    num = i 
-                return 'Winner: ' + str(num)
-
-    # Store and print analysis rows
-    print("Election Results")
-    print("-------------------------")
+    # Total Number of Votes
+    votetotal = len(total)
     row1 = "Total Votes: " + str(votetotal)
-    print(row1)
-    print("-------------------------")
-    row2 = unique(total)
-    print(row2)
-    row3 = winner(total)
-    print(row3)
-    print("-------------------------")
 
-# Export rows to analysis.txt
-outputfile = os.path.join("Analysis","analysis.txt")
-with open(outputfile, 'w') as datafile:
-    writer = csv.writer(datafile)
-    writer.writerow(["Election Results"])
-    writer.writerow(["-------------------------"])
-    writer.writerow([row1])
-    writer.writerow(["-------------------------"])
-    writer.writerow([row2])
-    writer.writerow([row3])
-    writer.writerow(["-------------------------"])
+    # Export rows to output file
+    print(row1, file=f)
+    print("-------------------------", file=f)
 
-# # Read and Print analysis.txt
-# f = open('analysis/analysis.txt', 'r')
-# contents = f.read()
-# print (contents)
-# f.close()
+    # Calculate List of Candidates With Vote Count, Percentage of Total, and Winner
+    def unique(total):
+        uniquelist = list(set(total))
+        votecount=[]
+        names=[]
+        for x in uniquelist:
+            votecount.append(total.count(x))
+            names.append(x)
+            print(f'{x}: {round(total.count(x)/votetotal*100,3)}% ({total.count(x)})', file=f)
+        win1 = max(votecount)
+        windex = votecount.index(win1)
+        winner = names[windex]
+        print("-------------------------", file=f)
+        print(f'Winner: {winner}', file=f)
+        print("-------------------------", file=f)
+    
+    # Run function and export to output file
+    unique(total)
+
+    # Read, print, and close output file
+    f = open('analysis/analysis.txt', 'r')
+    contents = f.read()
+    print (contents)
+    f.close()
