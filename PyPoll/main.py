@@ -46,8 +46,9 @@ with open(csvpath) as csvfile:
         print(f'Winner: {winner}', file=f)
         print("-------------------------", file=f)
     
-    # Run function and export to output file
+    # Run function, export to output file, and close
     unique(total)
+    f.close()
 
     # Read, print, and close output file
     f = open('analysis/analysis.txt', 'r')
